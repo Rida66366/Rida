@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">CTS</string>
+    <string name="user_name" />
+    <string name="enter_your_email">enter your email</string>
+    <string name="enter_your_emailaddress">Enter your email</string>
+    <string name="login_pages">Login Page</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="login">LOGIN</string>
+    <string name="enter_e_mail_here">Enter E-mail here</string>
+    <string name="enter_password_here">Enter Password here</string>
+    <string name="enter_your_name_here">Enter your Name here</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_">Login</string>
+    <string name="enter_your_phone_here">Enter your Phone# here</string>
+    <string name="enter_your_number">Enter your number</string>
+    <string name="registration_page">Registration Page</string>
+    <string name="subject">Subject</string>
+    <string name="message">Message</string>
+    <string name="email">Email</string>
+    <string name="enter_subject_here">enter Subject here</string>
+    <string name="enter_message_here">enter message here</string>
+    <string name="button">Button</string>
+    <string name="camera">Camera</string>
+    <string name="send">Send</string>
+    <string name="show_feedback">Show Feedback</string>
+    <string name="your_emails">Your Emails!</string>
+    <string name="signup">SignUp</string>
+    <string name="google_maps_key" />
+    <string name="imageviewuse">imageViewUse</string>
+    <string name="displayImage">selectedImage</string>
+    <string name="gallery">Gallery</string>
+
+</resources>

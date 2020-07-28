@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserFeedback"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/writeEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="@string/email"
+        android:hint="@string/enter_e_mail_here"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/subject_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:autofillHints=""
+        android:hint="@string/enter_subject_here"
+        android:inputType="text"
+        android:text="@string/subject" />
+
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:autofillHints=""
+        android:hint="@string/enter_message_here"
+        android:inputType="text"
+        android:text="@string/message" />
+    <ImageView
+        android:id="@+id/displayImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/displayImage"
+        app:srcCompat="@drawable/ic_launcher_background" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        style="?android:attr/buttonBarButtonStyle">
+
+
+        <Button
+            android:id="@+id/galleryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/gallery"
+            android:textColor="#131212"
+            />
+
+        <Button
+            android:id="@+id/camera"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/camera"
+            android:textColor="#131212" />
+
+        <Button
+            android:id="@+id/send"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="@string/send"
+            android:textColor="#131212" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
