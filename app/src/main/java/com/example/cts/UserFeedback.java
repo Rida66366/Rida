@@ -29,6 +29,9 @@ import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -51,9 +54,17 @@ public class UserFeedback extends AppCompatActivity {
     Button send,camera,galleryButton;
     ImageView selectedImage;
     String currentPhotoPath;
-    StorageReference storageReference;
+
     Firebase firebase;
 
+    private Uri fileData;
+    String imageFileName;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageReference = storage.getReference();
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    DatabaseReference mRef = firebaseDatabase.getReference();
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,52 +76,58 @@ public class UserFeedback extends AppCompatActivity {
         send = findViewById(R.id.send);
         camera = findViewById(R.id.camera);
         selectedImage = findViewById(R.id.displayImage);
-        storageReference = FirebaseStorage.getInstance().getReference();
+       // storageReference = FirebaseStorage.getInstance().getReference();
         galleryButton = findViewById(R.id.galleryButton);
         Firebase.setAndroidContext(this);
+
+        userId = auth.getCurrentUser().getUid();
 
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = writeEmail.getText().toString();
-                String subject = subject_.getText().toString();
-                String message1 = message.getText().toString();
 
-                Firebase child_email = firebase.child("Email");
-                child_email.setValue(email);
-                if (email.isEmpty()) {
-                    writeEmail.setError("this is a required field");
-                    send.setEnabled(false);
 
-                } else {
-                    writeEmail.setError(null);
-                    send.setEnabled(true);
-                }
+                uploadImageToFirebase(imageFileName,fileData);
 
-                Firebase child_subject= firebase.child("Subject");
-                child_subject.setValue(subject);
-                if (subject.isEmpty()){
-                    subject_.setError("this is a required field");
-                    send.setEnabled(false);
 
-                }else
-                {
-                    subject_.setError(null);
-                    send.setEnabled(false);
-                }
 
-                Firebase child_message1=firebase.child("Message");
-                child_message1.setValue("this is a required field");
-                if (message1.isEmpty()){
-                    message.setError("this is a required field");
-                    send.setEnabled(false);
-                }else
-                {
-                    message.setError(null);
-                    send.setEnabled(false);
-                }
 
+
+//                Firebase child_email = firebase.child("Email");
+//                child_email.setValue(email);
+//                if (email.isEmpty()) {
+//                    writeEmail.setError("this is a required field");
+//                    send.setEnabled(false);
+//
+//                } else {
+//                    writeEmail.setError(null);
+//                    send.setEnabled(true);
+//                }
+//
+//                Firebase child_subject= firebase.child("Subject");
+//                child_subject.setValue(subject);
+//                if (subject.isEmpty()){
+//                    subject_.setError("this is a required field");
+//                    send.setEnabled(false);
+//
+//                }else
+//                {
+//                    subject_.setError(null);
+//                    send.setEnabled(false);
+//                }
+//
+//                Firebase child_message1=firebase.child("Message");
+//                child_message1.setValue("this is a required field");
+//                if (message1.isEmpty()){
+//                    message.setError("this is a required field");
+//                    send.setEnabled(false);
+//                }else
+//                {
+//                    message.setError(null);
+//                    send.setEnabled(false);
+//                }
+//
 
 
             }
@@ -171,7 +188,9 @@ public class UserFeedback extends AppCompatActivity {
                 Uri contentUri = Uri.fromFile(f);
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
-                uploadImageToFirebase(f.getName(),contentUri);
+                imageFileName = f.getName();
+
+              //  uploadImageToFirebase(f.getName(),contentUri);
 
             }
         }
@@ -179,10 +198,11 @@ public class UserFeedback extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 Uri contentUri = data.getData();
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String imageFileName = "JPEG_" + timeStamp +"."+getFileExt(contentUri);
+                imageFileName = "JPEG_" + timeStamp +"."+getFileExt(contentUri);
                 Log.d("tag", "onActivityResult: Gallery Image Uri:  " +  imageFileName);
-                //selectedImage.setImageURI(contentUri);
-                uploadImageToFirebase(imageFileName,contentUri);
+                fileData = contentUri;
+                selectedImage.setImageURI(contentUri);
+             //   uploadImageToFirebase(imageFileName,contentUri);
     }
         }
     }
@@ -200,9 +220,17 @@ public class UserFeedback extends AppCompatActivity {
 
                        // Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
                     }
-                });
 
+                });
+                String email = writeEmail.getText().toString();
+                String subject = subject_.getText().toString();
+                String message1 = message.getText().toString();
+                FeedbackModel feedback = new FeedbackModel(email,subject,message1,imageFileName);
+
+                DatabaseReference model = mRef.child("feedback").child(userId).push();
+                model.setValue(feedback);
                 Toast.makeText(UserFeedback.this, "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -237,6 +265,8 @@ public class UserFeedback extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
+
+
         return image;
     }
 

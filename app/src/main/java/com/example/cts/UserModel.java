@@ -1,6 +1,6 @@
 package com.example.cts;
 import java.io.Serializable;
-public class UserModel implements Serializable {
+public class  UserModel implements Serializable {
 
 
     public String name;

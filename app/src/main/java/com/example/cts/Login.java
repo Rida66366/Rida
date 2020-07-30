@@ -48,8 +48,10 @@ public class Login extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = edittext.getText().toString();
-                String pass = password_.getText().toString();
+//                String email = edittext.getText().toString();
+//                String pass = password_.getText().toString();
+                String email = "ridabaig39@gmail.com";
+                String pass = "12345678";
 
                 Log.d("TAG112", edittext + "/" + password_);
                 if (!edittext.equals("") && !password_.equals("")) {
@@ -61,36 +63,38 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 String id = auth.getUid();
-                                mRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                        Log.d("TAG101", "" + dataSnapshot);
-                                        String role = dataSnapshot.child("role").getValue().toString();
-                                        Log.d("TAG101", "" + role);
-                                        if (role.equals("driver")) {
-                                            Intent intent = new Intent(Login.this, DriverDashboard.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                        else if (role.equals("customer")) {
-                                            Intent intent = new Intent(Login.this, customerDashboard.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Intent intent = new Intent(Login.this, distribution.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-
-                                    }
-
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
+                                    Intent intent = new Intent(Login.this, UserFeedback.class);
+                                    startActivity(intent);
+//                                mRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                                        Log.d("TAG101", "" + dataSnapshot);
+//                                        String role = dataSnapshot.child("role").getValue().toString();
+//                                        Log.d("TAG101", "" + role);
+//                                        if (role.equals("driver")) {
+//                                            Intent intent = new Intent(Login.this, DriverDashboard.class);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//                                        else if (role.equals("customer")) {
+//                                            Intent intent = new Intent(Login.this, customerDashboard.class);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        } else {
+//                                            Intent intent = new Intent(Login.this, distribution.class);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        }
+//
+//                                    }
+//
+//
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                                    }
+//                                });
 
                             }
                             else
@@ -114,15 +118,15 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, UserFeedback.class);
-                startActivity(intent);
-
-            }
-
-        });
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Login.this, UserFeedback.class);
+//                startActivity(intent);
+//
+//            }
+//
+//        });
     }}
 
 
