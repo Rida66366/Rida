@@ -63,38 +63,33 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 String id = auth.getUid();
-                                    Intent intent = new Intent(Login.this, UserFeedback.class);
-                                    startActivity(intent);
-//                                mRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                    @Override
-//                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                                        Log.d("TAG101", "" + dataSnapshot);
-//                                        String role = dataSnapshot.child("role").getValue().toString();
-//                                        Log.d("TAG101", "" + role);
-//                                        if (role.equals("driver")) {
-//                                            Intent intent = new Intent(Login.this, DriverDashboard.class);
-//                                            startActivity(intent);
-//                                            finish();
-//                                        }
-//                                        else if (role.equals("customer")) {
-//                                            Intent intent = new Intent(Login.this, customerDashboard.class);
-//                                            startActivity(intent);
-//                                            finish();
-//                                        } else {
-//                                            Intent intent = new Intent(Login.this, distribution.class);
-//                                            startActivity(intent);
-//                                            finish();
-//                                        }
-//
-//                                    }
-//
-//
-//                                    @Override
-//                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                    }
-//                                });
+
+                                mRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        Log.d("TAG101", "" + dataSnapshot);
+                                        String role = dataSnapshot.child("role").getValue().toString();
+                                        Log.d("TAG101", "" + role);
+                                        if (role.equals("admin")) {
+                                            Intent intent = new Intent(Login.this, Feedback.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                         else {
+                                            Intent intent = new Intent(Login.this, UserFeedback.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
+                                    }
+
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
 
                             }
                             else
