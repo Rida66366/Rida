@@ -186,6 +186,7 @@ public class UserFeedback extends AppCompatActivity {
 
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 Uri contentUri = Uri.fromFile(f);
+                fileData = contentUri;
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
                 imageFileName = f.getName();
