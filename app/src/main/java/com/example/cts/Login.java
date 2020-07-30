@@ -62,9 +62,9 @@ public class Login extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
 
-                                String id = auth.getUid();
+                                String id = auth.getCurrentUser().getUid();
 
-                                mRef.child("Users").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                mRef.child("User").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

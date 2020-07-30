@@ -20,13 +20,13 @@
         <activity android:name=".customerDashboard" />
         <activity android:name=".DriverDashboard" />
         <activity android:name=".Login">
-
-        </activity>
-        <activity android:name=".Feedback" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".Feedback" >
+
         </activity>
         <activity android:name=".Registration" />
         <activity android:name=".UserFeedback" >
